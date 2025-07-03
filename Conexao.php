@@ -2,7 +2,7 @@
 
     class Conexao{
 
-        private $dbname = "Transbordo";
+        private $dbname = "glpi_teste";
         private $user = "root";
         private $password ="";
         private $host = "localhost";
