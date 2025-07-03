@@ -10,11 +10,21 @@
     <form action="processa.php" method="POST">
         <h1>Informações:</h1>
 
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" required><br><br>
+        <label for="nome">Código:</label>
+        <input type="text" name="codigo" required><br><br>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" required><br><br>
+        <label for="descricao">Descrição:</label>
+        <input type="text" name="descricao" required><br><br>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="text" name="quantidade" required><br><br>
+
+        <label for="lote">Lote:</label>
+        <input type="text" name="lote" required><br><br>
+
+        <label for="paletes">Paletes:</label>
+        <input type="text" name="paletes" required><br><br>
+
 
         <button type="submit" name="acao" value="salvar">Salvar</button>
         <button type="submit" name="acao" value="pdf">Gerar PDF</button>
