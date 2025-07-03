@@ -108,7 +108,11 @@ public function salvar($codigo, $descricao, $quantidade, $lote, $outros) {
     $stmt->bindParam(':outros', $this->outros);
     $stmt->bindParam(':observacao', $this->observacao);
     $stmt->bindParam(':usuario_id', $this->usuario_id);
-
-    return $stmt->execute();
+    
+    if ($stmt->execute()) {
+        return $this->conn->lastInsertId();  // Retorna o ID da inserção
+    } else {
+        return false;
+    }
 }
 }

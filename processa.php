@@ -5,7 +5,7 @@ require 'Formulario.php';
 
 $formulario = new Formulario();
 
-// Captura variáveis do POST
+
 
 $acao       = isset($_POST['acao']) ? $_POST['acao'] : '';
 $codigo     = isset($_POST['codigo']) ? $_POST['codigo'] : '';
@@ -18,14 +18,20 @@ $formulario->setCodigo($codigo);
 $formulario->setDescricao($descricao);
 $formulario->setQuantidade($quantidade);
 $formulario->setLote($lote);
-$formulario->setOutros($paletes);  // ou outra variável, se "paletes" não for "outros"
+$formulario->setOutros($paletes);  
 $formulario->setObservacao('');
-$formulario->setUsuarioId(20); // ou o ID real do usuário logado, se existir
+$formulario->setUsuarioId(20); 
+$ultimoId = $formulario->salvar($codigo,$descricao,$quantidade,$lote,$paletes);
+if ($ultimoId) {
+    echo "Registro salvo! ID: " . $ultimoId;
+} else {
+    echo "Erro ao salvar.";
+}
 
-$formulario->salvar($codigo, $descricao, $quantidade, $lote, $paletes);
 
 
-// Se ação for salvar
+
+
 if ($acao == 'salvar') {
     if ($formulario->salvar($codigo,$descricao,$quantidade,$lote,$paletes)) {
         echo "Registro salvo!";
@@ -34,7 +40,7 @@ if ($acao == 'salvar') {
     }
 }
 
-// Se ação for gerar PDF
+
 if ($acao == 'pdf') {
     $mpdf = new \Mpdf\Mpdf([
         'format'      => 'A4',
@@ -44,6 +50,7 @@ if ($acao == 'pdf') {
     // Monta a linha da tabela com os campos individuais
     $linhasTabela = "
     <tr>
+
         <td>" . htmlspecialchars($codigo) . "</td>
         <td>" . htmlspecialchars($descricao) . "</td>
         <td>" . htmlspecialchars($quantidade) . "</td>
@@ -79,7 +86,7 @@ if ($acao == 'pdf') {
     </header>
 
     <section class="ficha-info">
-        <div><strong>Ficha Nº:</strong> 00001</div>
+        <div><strong>Ficha Nº:</strong> ' . htmlspecialchars($ultimoId) . '</div>
         <div><strong>Data:</strong> ' . date("d/m/Y") . '</div>
         <div><strong>Obs:</strong> —</div>
     </section>
@@ -95,7 +102,7 @@ if ($acao == 'pdf') {
             </tr>
         </thead>
         <tbody>
-            ' . $linhasTabela . '
+            ' . $linhasTabela. '
         </tbody>
     </table>
 
